@@ -1,18 +1,24 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import { RequireAuth } from "./components/RequireAuth";
+import { Layout } from "./components/Layout";
+import { Unauthorized } from "./pages/Unauthorized";
+import { Missing } from "./pages/Missing";
+import { Login } from "./pages/Login";
+import { Home } from "./pages/Home";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div>hi</div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="login" element={<Login />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
+        <Route element={<RequireAuth />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
 }
 

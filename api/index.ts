@@ -1,16 +1,17 @@
+require("@dotenvx/dotenvx").config();
+import { ExpressAuth } from "@auth/express";
+import GitHub from "@auth/express/providers/github";
 import express from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser";
 import path from "path";
-require("@dotenvx/dotenvx").config();
+import { Error } from "./types";
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "../client/dist")));
+// Middleware
+app.use(express.json());
 
-app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 app.use(
   cors({
@@ -18,13 +19,15 @@ app.use(
   })
 );
 
-// Middleware
-app.use(express.json());
-app.use(cookieParser());
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
+
+app.use("/auth/*", ExpressAuth({ providers: [GitHub] }));
 
 app.listen(5000, () => console.log("Sevrer running on port 5000"));
 
-app.use((err: any, req: any, res: any, next: any) => {
+app.use((err: Error, req: any, res: any, next: any) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
   return res.status(statusCode).json({

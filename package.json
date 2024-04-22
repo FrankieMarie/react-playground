@@ -6,11 +6,13 @@
     "client": "npm run dev --prefix client",
     "build-client": "npm run build --prefix client",
     "dev": "dotenvx run -- ts-node-dev api/index.ts",
-    "start": "dotenvx run -- node api/index.ts"
+    "start": "dotenvx run -- node api/index.ts",
+    "schema:migrate": "ts-node src/db/migrate"
   },
   "author": "frankiemarie",
   "license": "ISC",
   "dependencies": {
+    "@auth/express": "^0.5.3",
     "@dotenvx/dotenvx": "^0.35.1",
     "@libsql/client": "^0.6.0",
     "bcryptjs": "^2.4.3",
@@ -25,7 +27,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.12.7",
-    "drizzle-kit": "^0.20.16",
+    "drizzle-kit": "^0.20.17",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
