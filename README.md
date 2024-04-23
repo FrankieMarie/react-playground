@@ -9,7 +9,7 @@ This is a fullstack repo where I try things for fun and experiment with tools I 
 - [Tailwind CSS](https://tailwindcss.com/)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [React Query](https://tanstack.com/)
-- [TanStack Router](https://tanstack.com/)
+- [React Router](https://reactrouter.com/en/main)
 - [Vite](https://vitejs.dev/)
 
 ## API

@@ -7,7 +7,6 @@
   padding: 0;
   line-height: 1;
   box-sizing: border-box;
-  /* font-family: "Montserrat", sans-serif; */
 }
 
 html,
@@ -35,7 +34,7 @@ table {
 
 .outline-animation input:focus-within ~ label,
 .outline-animation input:not(:placeholder-shown) ~ label {
-  @apply text-primary z-0 ml-3 -translate-y-5 scale-90 transform px-1 py-0;
+  @apply z-0 ml-3 -translate-y-5 scale-90 transform px-1 py-0 text-primary;
 }
 
 /* Change autofill color */

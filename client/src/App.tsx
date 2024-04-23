@@ -1,23 +1,28 @@
-import { Route, Routes } from "react-router-dom";
-import { RequireAuth } from "./components/RequireAuth";
-import { Layout } from "./components/Layout";
-import { Unauthorized } from "./pages/Unauthorized";
-import { Missing } from "./pages/Missing";
-import { Login } from "./pages/Login";
-import { Home } from "./pages/Home";
+import { BrowserRouter } from 'react-router-dom';
+import { AppRouter } from './components/AppRouter';
+import { AuthProvider } from './components/AuthProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        refetchInterval: false,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false
+      }
+    }
+  });
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="login" element={<Login />} />
-        <Route path="unauthorized" element={<Unauthorized />} />
-        <Route element={<RequireAuth />}>
-          <Route path="/" element={<Home />} />
-        </Route>
-        <Route path="*" element={<Missing />} />
-      </Route>
-    </Routes>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 
