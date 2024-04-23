@@ -2,15 +2,18 @@
   "name": "react-playground",
   "version": "1.0.0",
   "main": "index.ts",
+  "author": "frankiemarie",
+  "license": "ISC",
   "scripts": {
     "client": "npm run dev --prefix client",
     "build-client": "npm run build --prefix client",
     "dev": "dotenvx run -- ts-node-dev api/index.ts",
     "start": "dotenvx run -- node api/index.ts",
-    "schema:migrate": "ts-node src/db/migrate"
+    "migrations:generate": "drizzle-kit generate:sqlite --config=drizzle.config.ts",
+    "migrations:drop": "drizzle-kit drop --config=drizzle.config.ts",
+    "db:push": "drizzle-kit push:sqlite --config=drizzle.config.ts",
+    "studio": "drizzle-kit studio"
   },
-  "author": "frankiemarie",
-  "license": "ISC",
   "dependencies": {
     "@auth/express": "^0.5.3",
     "@dotenvx/dotenvx": "^0.35.1",

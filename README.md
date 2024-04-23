@@ -1,6 +1,6 @@
 # React Playground
 
-This is a fullstack app where I try things for fun and experiment with tools I am interested in.
+This is a fullstack repo where I try things for fun and experiment with tools I am interested in.
 
 ## CLIENT
 
@@ -15,13 +15,10 @@ This is a fullstack app where I try things for fun and experiment with tools I a
 ## API
 
 - [Node.js](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [TursoDB](https://turso.tech/)
 - [Drizzle ORM](https://orm.drizzle.team/)
-- [JWT](https://jwt.io/)
-- [Google Authentication](https://cloud.google.com/nodejs/getting-started/authenticate-users)
-- Github Authentication
+- [Auth.js](https://authjs.dev/)
 
 ---
-
-Its all hosted through fly.io

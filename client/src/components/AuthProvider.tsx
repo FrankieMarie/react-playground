@@ -1,5 +1,5 @@
-import { AuthContext, UserData } from "@/hooks/useAuth";
-import { ReactNode, useState } from "react";
+import { AuthContext, UserData } from '@/hooks/useAuth';
+import { ReactNode, useState } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -16,9 +16,5 @@ export const AuthProvider = ({ children }: Props) => {
     setUser(null);
   };
 
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
 };
