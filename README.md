@@ -17,8 +17,7 @@ This is a fullstack repo where I try things for fun and experiment with tools I 
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [TursoDB](https://turso.tech/)
-- [Drizzle ORM](https://orm.drizzle.team/)
-- [Auth.js](https://authjs.dev/)
+- [Lucia Auth](https://lucia-auth.com/)
+- [SQLite](https://www.sqlite.org/index.html)
 
 ---

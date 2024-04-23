@@ -1,65 +1,74 @@
-require("@dotenvx/dotenvx").config();
-import { Error } from "./types";
-import { ExpressAuth } from "@auth/express";
-import GitHub from "@auth/express/providers/github";
-// import credentials from "@auth/express/providers/credentials";
 import express from "express";
-import cors from "cors";
-import path from "path";
+import type { User, Session } from "lucia";
+import { verifyRequestOrigin } from "lucia";
+import { lucia } from "./lib/auth.js";
+import { loginRouter } from "./routes/login/index.js";
+import { logoutRouter } from "./routes/logout.js";
 
 const app = express();
 
-// Middleware
-app.use(express.json());
+app.use(express.urlencoded());
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+app.use((req, res, next) => {
+  if (req.method === "GET") {
+    return next();
+  }
 
-app.use(express.static(path.join(__dirname, "../client/dist")));
+  const originHeader = req.headers.origin ?? null;
+  const hostHeader = req.headers.host ?? null;
 
-app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  if (
+    !originHeader ||
+    !hostHeader ||
+    !verifyRequestOrigin(originHeader, [hostHeader])
+  ) {
+    return res.status(403).end();
+  }
+
+  return next();
 });
 
-app.use(
-  "/auth/github",
-  ExpressAuth({
-    providers: [
-      GitHub,
-      // credentials({
-      //   credentials: {
-      //     email: {},
-      //     password: {},
-      //   },
-      //   authorize: async (credentials) => {
-      //     let user = null;
+app.use(async (req, res, next) => {
+  const sessionId = lucia.readSessionCookie(req.headers.cookie ?? "");
 
-      //     const pwHash = saltAndHashPassword(credentials.password);
+  if (!sessionId) {
+    res.locals.user = null;
+    res.locals.session = null;
+    return next();
+  }
 
-      //     user = await getUserFromDb(credentials.email, pwHash);
+  const { session, user } = await lucia.validateSession(sessionId);
 
-      //     if (!user) {
-      //       throw new Error("User not found.");
-      //     }
+  if (session && session.fresh) {
+    res.appendHeader(
+      "Set-Cookie",
+      lucia.createSessionCookie(session.id).serialize()
+    );
+  }
 
-      //     return user;
-      //   },
-      // }),
-    ],
-  })
-);
+  if (!session) {
+    res.appendHeader(
+      "Set-Cookie",
+      lucia.createBlankSessionCookie().serialize()
+    );
+  }
 
-app.listen(5000, () => console.log("Sevrer running on port 5000"));
-
-app.use((err: Error, req: any, res: any, next: any) => {
-  const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
-  return res.status(statusCode).json({
-    success: false,
-    message,
-    statusCode,
-  });
+  res.locals.session = session;
+  res.locals.user = user;
+  return next();
 });
+
+app.use(loginRouter, logoutRouter);
+
+app.listen(3000);
+
+console.log("Server running on port 3000");
+
+declare global {
+  namespace Express {
+    interface Locals {
+      user: User | null;
+      session: Session | null;
+    }
+  }
+}
