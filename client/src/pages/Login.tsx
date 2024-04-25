@@ -1,48 +1,98 @@
-import { useLogin } from '@/api/useLogin';
 import github from '@/assets/github.svg';
 import google from '@/assets/google.svg';
 import { Button } from '@/components/Button';
 import { DividerLabel } from '@/components/DividerLabel';
 import { Input } from '@/components/Input';
+import { useSignIn } from '@clerk/clerk-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-  const { mutate } = useLogin();
+  const nav = useNavigate();
+  const { isLoaded, signIn, setActive } = useSignIn();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleLoginCredentials = () => {};
+  const signInCedentials = async () => {
+    if (!isLoaded) {
+      return;
+    }
 
-  const handleLoginGitHub = () => mutate();
+    try {
+      const completeSignIn = await signIn.create({
+        identifier: email,
+        password
+      });
 
-  const handleLoginGoogle = () => {};
+      if (completeSignIn.status === 'complete') {
+        await setActive({ session: completeSignIn.createdSessionId });
+        nav('/');
+      }
+    } catch (err: any) {
+      console.error(JSON.stringify(err, null, 2));
+    }
+  };
+
+  const signInWith = (strategy: Strategy) => {
+    return signIn?.authenticateWithRedirect({
+      strategy,
+      redirectUrl: '/sso-callback',
+      redirectUrlComplete: '/'
+    });
+  };
 
   return (
-    <section className="mx-auto flex h-full max-w-md flex-col items-center justify-center">
+    <section className="mx-auto flex max-w-md translate-y-1/2 flex-col items-center justify-center rounded-lg bg-medium bg-opacity-15 p-8">
       <h1 className="mb-8 text-center text-2xl font-bold uppercase">Welcome</h1>
-      <form className="flex w-full flex-col gap-8 ">
-        <Input name="email" label="Email" type="email" />
-        <Input name="password" label="Password" type="password" />
-        <Button variant="outline" type="submit" onClick={handleLoginCredentials}>
-          Login
-        </Button>
+      <div className="flex w-full flex-col gap-6">
+        <form className="flex flex-col gap-8">
+          {/* login with credentials */}
+          <Input
+            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            label="Email"
+            type="email"
+            autoComplete="email"
+          />
+          <Input
+            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            label="Password"
+            type="password"
+          />
+          <Button variant="outline" type="submit" onClick={signInCedentials}>
+            Login
+          </Button>
+        </form>
+
         <DividerLabel title="or" />
+
+        {/* login with github */}
         <Button
-          className="flex gap-4 border-2 border-medium hover:border-medium hover:bg-medium hover:text-light"
+          className="flex w-full gap-4 border-2 border-medium hover:border-medium hover:bg-medium hover:text-light"
           variant="outline"
           type="button"
-          onClick={handleLoginGitHub}
+          onClick={() => signInWith(GITHUB)}
         >
           <img className="w-5" src={github} />
           <span>Login With GitHub</span>
         </Button>
+
+        {/* login with google */}
         <Button
-          className="flex gap-4 border-2 border-medium hover:border-medium hover:bg-medium hover:text-light"
+          className="flex w-full gap-4 border-2 border-medium hover:border-medium hover:bg-medium hover:text-light"
           variant="outline"
           type="button"
-          onClick={handleLoginGoogle}
+          onClick={() => signInWith(GOOGLE)}
         >
           <img className="w-5" src={google} />
           <span>Login With Google</span>
         </Button>
-      </form>
+      </div>
     </section>
   );
 };
+
+const GITHUB = 'oauth_github' as const;
+const GOOGLE = 'oauth_google' as const;
+type Strategy = typeof GITHUB | typeof GOOGLE;

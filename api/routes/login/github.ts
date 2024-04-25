@@ -36,6 +36,7 @@ githubLoginRouter.get("/login/github/callback", async (req, res) => {
     res.status(400).end();
     return;
   }
+
   try {
     const tokens = await github.validateAuthorizationCode(code);
     const githubUserResponse = await fetch("https://api.github.com/user", {
@@ -55,7 +56,9 @@ githubLoginRouter.get("/login/github/callback", async (req, res) => {
           "Set-Cookie",
           lucia.createSessionCookie(session.id).serialize()
         )
-        .redirect("/");
+        .appendHeader("Access-Control-Allow-Origin", "http://localhost:5173")
+        .status(200)
+        .redirect("http://localhost:5173/");
     }
 
     const userId = generateId(15);
@@ -69,7 +72,9 @@ githubLoginRouter.get("/login/github/callback", async (req, res) => {
         "Set-Cookie",
         lucia.createSessionCookie(session.id).serialize()
       )
-      .redirect("/");
+      .status(200)
+      .json(githubUser);
+    //.redirect("http://localhost:5173/");
   } catch (e) {
     if (
       e instanceof OAuth2RequestError &&
@@ -83,6 +88,20 @@ githubLoginRouter.get("/login/github/callback", async (req, res) => {
     return;
   }
 });
+
+// githubLoginRouter.get("/user/github", async (req, res) => {
+//   const sessionId = lucia.readSessionCookie(req.headers.cookie ?? "");
+
+//   if (sessionId !== null) {
+//     const { user } = await lucia.validateSession(sessionId);
+
+//     if (user !== null) {
+//       return res.status(200).json(user);
+//     }
+//   }
+
+//   return res.status(401).json(null);
+// });
 
 interface GitHubUser {
   id: string;

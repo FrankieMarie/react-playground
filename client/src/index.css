@@ -37,6 +37,10 @@ table {
   @apply z-0 ml-3 -translate-y-5 scale-90 transform px-1 py-0 text-primary;
 }
 
+.outline-animation input:not(:placeholder-shown) ~ label {
+  @apply text-secondary;
+}
+
 /* Change autofill color */
 input:-internal-autofill-selected,
 input:-webkit-autofill,

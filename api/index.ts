@@ -4,10 +4,21 @@ import { verifyRequestOrigin } from "lucia";
 import { lucia } from "./lib/auth.js";
 import { loginRouter } from "./routes/login/index.js";
 import { logoutRouter } from "./routes/logout.js";
+import cors from "cors";
 
 const app = express();
 
-app.use(express.urlencoded());
+app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    optionsSuccessStatus: 201,
+  })
+);
+
+app.options("*", cors());
 
 app.use((req, res, next) => {
   if (req.method === "GET") {
