@@ -6,12 +6,14 @@ import { Routes, Route } from 'react-router-dom';
 import { RequireAuth } from './RequireAuth';
 import { Layout } from './Layout';
 import { Home } from '@/pages/Home';
+import { SignUp } from '@/pages/SignUp';
 
 export const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path="login" element={<Login />} />
+        <Route path="sign-up" element={<SignUp />} />
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* Private Routes */}

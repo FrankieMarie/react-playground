@@ -3,6 +3,7 @@ import { Button } from '@/components/Button';
 import { Input } from '@/components/Input';
 import { useSignUp } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeftIcon } from '@radix-ui/react-icons';
 
 export const SignUp = () => {
   const nav = useNavigate();
@@ -51,48 +52,55 @@ export const SignUp = () => {
   };
 
   return (
-    <section className="mx-auto flex h-full max-w-md flex-col items-center justify-center">
-      <h1 className="mb-8 text-center text-2xl font-bold uppercase">Sign Up</h1>
-      {!verifying && (
-        <form>
-          <Input
-            onChange={(e) => setEmail(e.target.value)}
-            name="email"
-            label="Email"
-            type="email"
-            autoComplete="off"
-          />
-          <Input
-            onChange={(e) => setPassword(e.target.value)}
-            name="password"
-            label="Password"
-            type="password"
-          />
-          <Input
-            onChange={(e) => setMatchPassword(e.target.value)}
-            name="confirmPassword"
-            label="Confirm Password"
-            type="confirmPassword"
-          />
-          <Button variant="outline" type="submit" onClick={handleSubmit}>
-            Sign Up
-          </Button>
-        </form>
-      )}
+    <>
+      <Button variant="link" onClick={() => nav('/login', { replace: true })}>
+        <ArrowLeftIcon /> Back to Login
+      </Button>
+      <section className="mx-auto flex w-full max-w-md translate-y-1/2 flex-col gap-6 rounded-lg bg-medium bg-opacity-15 p-8">
+        <h1 className="mb-8 text-center text-2xl font-bold uppercase">
+          Sign Up
+        </h1>
+        {!verifying && (
+          <form className="flex flex-col gap-8">
+            <Input
+              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              label="Email"
+              type="email"
+              autoComplete="off"
+            />
+            <Input
+              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              label="Password"
+              type="password"
+            />
+            <Input
+              onChange={(e) => setMatchPassword(e.target.value)}
+              name="matchPassword"
+              label="Confirm Password"
+              type="password"
+            />
+            <Button variant="outline" type="submit" onClick={handleSubmit}>
+              Sign Up
+            </Button>
+          </form>
+        )}
 
-      {verifying && (
-        <form>
-          <Input
-            value={code}
-            name="code"
-            label="Code..."
-            onChange={(e) => setCode(e.target.value)}
-          />
-          <Button type="button" onClick={handleVerify}>
-            Verify Email
-          </Button>
-        </form>
-      )}
-    </section>
+        {verifying && (
+          <form>
+            <Input
+              value={code}
+              name="code"
+              label="Code..."
+              onChange={(e) => setCode(e.target.value)}
+            />
+            <Button type="button" onClick={handleVerify}>
+              Verify Email
+            </Button>
+          </form>
+        )}
+      </section>
+    </>
   );
 };

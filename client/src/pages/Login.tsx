@@ -1,11 +1,12 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSignIn } from '@clerk/clerk-react';
+import { ArrowRightIcon } from '@radix-ui/react-icons';
 import github from '@/assets/github.svg';
 import google from '@/assets/google.svg';
 import { Button } from '@/components/Button';
 import { DividerLabel } from '@/components/DividerLabel';
 import { Input } from '@/components/Input';
-import { useSignIn } from '@clerk/clerk-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const nav = useNavigate();
@@ -42,9 +43,9 @@ export const Login = () => {
   };
 
   return (
-    <section className="mx-auto flex max-w-md translate-y-1/2 flex-col items-center justify-center rounded-lg bg-medium bg-opacity-15 p-8">
-      <h1 className="mb-8 text-center text-2xl font-bold uppercase">Welcome</h1>
-      <div className="flex w-full flex-col gap-6">
+    <section className="mx-auto flex max-w-md translate-y-1/2 flex-col items-center justify-center gap-4">
+      <div className="flex w-full flex-col gap-6 rounded-lg bg-medium bg-opacity-15 p-8">
+        <h1 className="text-center text-2xl font-bold uppercase">Welcome</h1>
         <form className="flex flex-col gap-8">
           {/* login with credentials */}
           <Input
@@ -87,6 +88,15 @@ export const Login = () => {
         >
           <img className="w-5" src={google} />
           <span>Login With Google</span>
+        </Button>
+      </div>
+
+      <div className="flex flex-col">
+        <Button variant="link" onClick={() => nav('/sign-up')}>
+          Create account <ArrowRightIcon />
+        </Button>
+        <Button variant="link">
+          Forgot password <ArrowRightIcon />
         </Button>
       </div>
     </section>
