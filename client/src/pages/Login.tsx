@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@radix-ui/react-icons';
 import github from '@/assets/github.svg';
 import google from '@/assets/google.svg';
 import { Button } from '@/components/Button';
-import { DividerLabel } from '@/components/DividerLabel';
+import { DividerLabel } from '@/components/Divider';
 import { Input } from '@/components/Input';
 
 export const Login = () => {

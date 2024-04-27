@@ -11,3 +11,7 @@ export const DividerLabel = ({ title }: Props) => {
     </div>
   );
 };
+
+export const HorizontalDivider = () => {
+  return <div className="my-2 w-full border-t border-light" aria-hidden />;
+};
