@@ -6,6 +6,7 @@ import { useAuth, useUser } from '@clerk/clerk-react';
 import { Button } from '../Button';
 import { Mobile } from './Mobile';
 import { NavItem, navItems } from './NavItem';
+import { Avatar } from '../Avatar';
 
 export const Header = () => {
   const { signOut } = useAuth();
@@ -48,7 +49,8 @@ export const Header = () => {
           ))}
         </ul>
 
-        <div className="hidden sm:flex sm:flex-1 sm:justify-end">
+        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-end sm:gap-4">
+          <Avatar image={user?.imageUrl!} />
           <Button
             variant="link"
             onClick={() => signOut()}
