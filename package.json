@@ -5,8 +5,6 @@
   "author": "frankiemarie",
   "type": "module",
   "scripts": {
-    "client": "npm run dev --prefix client",
-    "build-client": "npm run build --prefix client",
     "dev": "bun run index.ts",
     "generate": "bunx drizzle-kit generate:sqlite --schema ./schema.ts",
     "migrate": "bun run migrate.ts",
