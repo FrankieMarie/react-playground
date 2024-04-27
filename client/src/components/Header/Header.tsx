@@ -49,15 +49,13 @@ export const Header = () => {
         </ul>
 
         <div className="hidden sm:flex sm:flex-1 sm:justify-end">
-          {user && (
-            <Button
-              variant="link"
-              onClick={() => signOut()}
-              className="p-0 text-sm font-semibold leading-6 text-light hover:text-primary"
-            >
-              Logout <span aria-hidden="true">&rarr;</span>
-            </Button>
-          )}
+          <Button
+            variant="link"
+            onClick={() => signOut()}
+            className={`p-0 text-sm font-semibold leading-6 text-light hover:text-primary ${!user && 'pointer-events-none invisible'}`}
+          >
+            Logout <span aria-hidden="true">&rarr;</span>
+          </Button>
         </div>
       </nav>
 

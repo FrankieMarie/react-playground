@@ -12,7 +12,10 @@ dist
 dist-ssr
 *.local
 
+# db
 drizzle
+sqlite.db
+seed.ts
 
 # Editor directories and files
 .vscode/*

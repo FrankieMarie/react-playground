@@ -7,17 +7,57 @@ This is a fullstack repo where I try things for fun and experiment with tools I 
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [shadcn/ui](https://ui.shadcn.com/)
 - [React Query](https://tanstack.com/)
 - [React Router](https://reactrouter.com/en/main)
 - [Vite](https://vitejs.dev/)
 
 ## API
 
-- [Node.js](https://nodejs.org/en/)
-- [Express](https://expressjs.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Lucia Auth](https://lucia-auth.com/)
-- [SQLite](https://www.sqlite.org/index.html)
+- [Bun](https://bun.sh/)
+- [Drizzle](https://orm.drizzle.team/)
+- [SQLite3](https://bun.sh/docs/api/sqlite)
 
 ---
+
+To run local dev API:
+
+```
+bun install
+```
+
+```
+bun run migrate
+```
+
+(optional) create a seed.ts file:
+
+```
+import { db } from "./db.js";
+import * as schema from "./schema.js";
+
+const tasks = {...};
+
+await db.insert(schema.tasks).values([ ...tasks ]);
+```
+
+```
+bun seed
+```
+
+```
+bun dev
+```
+
+To run local dev Client:
+
+```
+cd client/
+```
+
+```
+bun install
+```
+
+```
+bun dev
+```
