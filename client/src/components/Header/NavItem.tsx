@@ -34,7 +34,7 @@ export const NavItemMobile = ({ path, label, onClick }: NavItemProps) => {
 };
 
 export const navItems: NavItemProps[] = [
-  { path: '/components', label: 'Componetns' },
+  { path: '/components', label: 'Components' },
   { path: '/animations', label: 'Animations' },
-  { path: '/blog', label: 'Blog' }
+  { path: '/blog', label: 'Blog Posts' }
 ];
