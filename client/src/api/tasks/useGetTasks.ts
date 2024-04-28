@@ -7,6 +7,7 @@ export const TASKS_QUERY_KEY = 'tasks';
 export const useGetTasks = () => {
   const { axiosInstance } = useServices();
 
+  // TODO: fetch tasks by userId
   const fetchTasks = () =>
     axiosInstance.get<Tasks>('/tasks').then((res) => res.data);
 
