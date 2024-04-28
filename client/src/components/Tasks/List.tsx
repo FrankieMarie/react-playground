@@ -1,60 +1,58 @@
-import { Tasks } from '@/api/tasks/types';
-import { Item } from './Item';
-import Select from '../Select';
+import { TaskKeys, TaskStatus, Tasks } from '@/api/tasks/types';
+import { useState } from 'react';
+import { Column } from './Column';
 
 interface Props {
   tasks: Tasks | undefined;
 }
 
 export const List = ({ tasks }: Props) => {
-  const todo = tasks?.filter((x) => x.status === 'todo') as Tasks;
-  const inProgress = tasks?.filter((x) => x.status === 'inProgress') as Tasks;
-  const done = tasks?.filter((x) => x.status === 'done') as Tasks;
+  const [sort, setSort] = useState<Record<TaskStatus, TaskKeys>>({
+    todo: 'priority',
+    inProgress: 'priority',
+    done: 'title'
+  });
 
-  const renderItems = (x: Tasks) =>
-    !tasks ? (
-      <p>Fetching Tasks...</p>
-    ) : (
-      x.map((x) => <Item key={x.id} task={x} />)
-    );
+  const todo = tasks
+    ?.filter((x) => x.status === 'todo')
+    .sort((a, b) =>
+      `${a[sort.todo]}`.localeCompare(`${b[sort.todo]}`)
+    ) as Tasks;
+
+  const inProgress = tasks
+    ?.filter((x) => x.status === 'inProgress')
+    .sort((a, b) =>
+      `${a[sort.inProgress]}`.localeCompare(`${b[sort.inProgress]}`)
+    ) as Tasks;
+
+  const done = tasks
+    ?.filter((x) => x.status === 'done')
+    .sort((a, b) =>
+      `${a[sort.done]}`.localeCompare(`${b[sort.done]}`)
+    ) as Tasks;
 
   return (
     <div className="my-8 grid shrink-0 grow grid-cols-3 gap-8">
-      <section className="rounded-md border border-medium p-4">
-        <div className="flex items-baseline gap-6">
-          <h1 className="mb-4 text-2xl font-semibold text-secondary">
-            Backlog
-          </h1>
-          <Select
-            options={['priority', 'createdAt', 'title']}
-            defaultSelected="priority"
-          />
-        </div>
-        {renderItems(todo)}
-      </section>
-      <section className="rounded-md border border-medium p-4">
-        <div className="flex items-baseline gap-6">
-          <h1 className="mb-4 text-2xl font-semibold text-secondary">
-            In Progress
-          </h1>
+      <Column
+        title="Backlog"
+        tasks={todo}
+        selectedSort={sort.todo}
+        onChangeSort={(value) => setSort({ ...sort, todo: value })}
+      />
 
-          <Select
-            options={['priority', 'createdAt', 'title']}
-            defaultSelected="priority"
-          />
-        </div>
-        {renderItems(inProgress)}
-      </section>
-      <section className="rounded-md border border-medium p-4">
-        <div className="flex items-baseline gap-6">
-          <h1 className="mb-4 text-2xl font-semibold text-secondary">Done</h1>
-          <Select
-            options={['priority', 'createdAt', 'title']}
-            defaultSelected="title"
-          />
-        </div>
-        {renderItems(done)}
-      </section>
+      <Column
+        title="In Progress"
+        tasks={inProgress}
+        selectedSort={sort.inProgress}
+        onChangeSort={(value) => setSort({ ...sort, inProgress: value })}
+      />
+
+      <Column
+        title="Done"
+        tasks={done}
+        selectedSort={sort.done}
+        onChangeSort={(value) => setSort({ ...sort, done: value })}
+      />
     </div>
   );
 };

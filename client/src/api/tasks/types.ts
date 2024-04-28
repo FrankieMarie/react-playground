@@ -4,8 +4,10 @@ export interface Task {
   description: string;
   order: number;
   status: TaskStatus;
-  priority: 'High' | 'Medium' | 'Low';
+  priority: TaskPriority;
 }
 
+export type TaskKeys = keyof Task;
 export type Tasks = Task[];
 export type TaskStatus = 'todo' | 'inProgress' | 'done';
+export type TaskPriority = 'High' | 'Medium' | 'Low';

@@ -1,18 +1,17 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 interface Props {
   options: string[];
-  defaultSelected: string;
+  selected: string;
+  onChange: (value: string) => void;
 }
 
-export default function Select({ options, defaultSelected }: Props) {
-  const [selected, setSelected] = useState(defaultSelected);
-
+export default function Select({ options, selected, onChange }: Props) {
   return (
     <div className="flex-grow">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={onChange}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-default rounded-lg border border-light bg-transparent py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:text-sm">
             <span className="block truncate">{selected}</span>
