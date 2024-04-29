@@ -9,3 +9,5 @@ export const tasks = sqliteTable("tasks", {
   createdAt: integer("created_at", { mode: "timestamp" }),
   userId: text("user_id"),
 });
+
+export type NewTask = typeof tasks.$inferInsert;

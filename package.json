@@ -5,7 +5,8 @@
   "author": "frankiemarie",
   "type": "module",
   "scripts": {
-    "dev": "bun run index.ts",
+    "dev": "bun --watch index.ts",
+    "build": "bun build src/index.ts",
     "generate": "bunx drizzle-kit generate:sqlite --schema ./schema.ts",
     "drop": "bunx drizzle-kit drop",
     "migrate": "bun run migrate.ts",
@@ -13,9 +14,11 @@
     "studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.30.9"
+    "drizzle-orm": "^0.30.9",
+    "elysia": "^1.0.15"
   },
   "devDependencies": {
     "@types/bun": "latest",

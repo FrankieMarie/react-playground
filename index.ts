@@ -1,49 +1,27 @@
-import * as schema from "./schema.js";
+import { Elysia } from "elysia";
+import { cors } from "@elysiajs/cors";
 import { db } from "./db.js";
+import * as schema from "./schema.js";
+import type { NewTask } from "./schema.js";
 
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
-};
+const app = new Elysia()
+  .use(cors())
+  .get("/tasks", async () => {
+    const result = await db.select().from(schema.tasks);
+    return new Response(JSON.stringify(result), {
+      status: 200,
+    });
+  })
+  .post("/task/new", async ({ body }: { body: NewTask }) => {
+    console.log(body);
+    // await db.insert(schema.tasks).values(body);
 
-const server = Bun.serve({
-  // GET all tasks
-  async fetch(req) {
-    const path = new URL(req.url).pathname;
+    // return new Response("Added new task", {
+    //   status: 200,
+    // });
+  })
+  .listen(3000);
 
-    const optionsReq = (req: Request) => {
-      if (req.method === "OPTIONS") {
-        return new Response("Departed", { headers });
-      }
-    };
+export type App = typeof app;
 
-    if (path === "/tasks") {
-      optionsReq(req);
-      const result = await db.select().from(schema.tasks);
-      return new Response(JSON.stringify(result), {
-        headers,
-        status: 200,
-      });
-    }
-
-    // POST new task
-    if (path === "/tasks/new" && req.method === "POST") {
-      console.log("REQ:", req);
-      optionsReq(req);
-      // const result = await db.insert(schema.tasks).values({
-      //   title: req.body?.title,
-      //   description: req.body?.description,
-      //   order: req.body?.order,
-      //   priority: req.body?.priority,
-      // });
-      return new Response(JSON.stringify({}), { headers, status: 200 });
-    }
-
-    return new Response("Not found.", { status: 404 });
-  },
-  // PUT update task
-  // DELETE remove task
-});
-
-console.log(`Listening on ${server.url}`);
+console.log(`🦊 Elysia is running at on port ${app.server?.port}...`);

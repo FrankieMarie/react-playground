@@ -1,22 +1,14 @@
 import { Fragment, JSX } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Button } from './Button';
 
 interface Props {
   isOpen: boolean;
   title: string;
   children: JSX.Element;
-  closeButtonText: string;
   setOpen: (x: boolean) => void;
 }
 
-export default function Modal({
-  isOpen,
-  title,
-  children,
-  closeButtonText,
-  setOpen
-}: Props) {
+export const Modal = ({ isOpen, title, children, setOpen }: Props) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={setOpen}>
@@ -51,11 +43,6 @@ export default function Modal({
                   {title}
                 </Dialog.Title>
                 {children}
-                <div className="mt-6">
-                  <Button variant="default" onClick={() => setOpen(false)}>
-                    {closeButtonText}
-                  </Button>
-                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -63,4 +50,4 @@ export default function Modal({
       </Dialog>
     </Transition>
   );
-}
+};

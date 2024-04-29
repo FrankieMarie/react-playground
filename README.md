@@ -14,19 +14,16 @@ This is a fullstack repo where I try things for fun and experiment with tools I 
 ## API
 
 - [Bun](https://bun.sh/)
+- [ElysiaJS](https://elysiajs.com/)
 - [Drizzle](https://orm.drizzle.team/)
 - [SQLite3](https://bun.sh/docs/api/sqlite)
 
 ---
 
-To run local dev API:
+To run local server:
 
 ```
 bun install
-```
-
-```
-bun run migrate
 ```
 
 (optional) create a seed.ts file:
@@ -41,6 +38,14 @@ await db.insert(schema.tasks).values([ ...tasks ]);
 ```
 
 ```
+bun run generate
+```
+
+```
+bun run migrate
+```
+
+```
 bun seed
 ```
 
@@ -48,7 +53,7 @@ bun seed
 bun dev
 ```
 
-To run local dev Client:
+To run local client:
 
 ```
 cd client/
