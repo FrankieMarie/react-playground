@@ -27,8 +27,7 @@ export const TaskForm = ({ task, onSubmit }: Props) => {
         description,
         status,
         priority,
-        userId: task?.userId || user?.id,
-        createdAt: task?.createdAt || new Date(Date.now())
+        userId: task?.userId || user?.id
       };
 
       onSubmit(newTask);

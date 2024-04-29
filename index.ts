@@ -14,7 +14,8 @@ const app = new Elysia()
   })
   .post("/task/new", async ({ body }: { body: NewTask }) => {
     console.log(body);
-    // await db.insert(schema.tasks).values(body);
+
+    await db.insert(schema.tasks).values(body);
 
     // return new Response("Added new task", {
     //   status: 200,

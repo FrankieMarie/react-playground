@@ -5,7 +5,7 @@ export interface Task {
   id?: string;
   title: string;
   description: string;
-  createdAt: Date;
+  createdAt?: Date;
   userId: string;
   status: TaskStatus;
   priority: TaskPriority;
