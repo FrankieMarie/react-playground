@@ -27,7 +27,7 @@ export const Column = ({ title, tasks, selectedSort, onChangeSort }: Props) => {
           onChange={(value) => onChangeSort(value as TaskKeys)}
         />
       </div>
-      {renderItems()}
+      <div className="mt-4 flex flex-col gap-4">{renderItems()}</div>
     </section>
   );
 };

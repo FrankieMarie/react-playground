@@ -10,7 +10,7 @@ interface Props {
 
 export default function Select({ options, selected, onChange }: Props) {
   return (
-    <div className="flex-grow">
+    <div className="z-30 flex-grow">
       <Listbox value={selected} onChange={onChange}>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-default rounded-lg border border-light bg-transparent py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:text-sm">
@@ -28,12 +28,12 @@ export default function Select({ options, selected, onChange }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-medium py-1 text-base shadow-lg ring-1 ring-medium focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-medium py-1 text-base shadow-lg ring-1 ring-medium focus:outline-none sm:text-sm">
               {options.map((x, i) => (
                 <Listbox.Option
                   key={i}
                   className={({ active }) =>
-                    `relative cursor-pointer select-none py-2 pl-10 pr-4 transition-all hover:text-dark ${
+                    `relative cursor-pointer select-none py-2 pl-10 pr-4 leading-4 transition-all hover:text-dark ${
                       active ? 'bg-primary text-dark' : 'text-light'
                     }`
                   }

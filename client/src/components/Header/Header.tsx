@@ -14,7 +14,7 @@ export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-medium bg-opacity-35 ">
+    <header className="bg-mediumDark">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 sm:px-8"
         aria-label="Global"
@@ -50,7 +50,7 @@ export const Header = () => {
         </ul>
 
         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-end sm:gap-4">
-          <Avatar image={user?.imageUrl!} />
+          {user && <Avatar image={user.imageUrl} />}
           <Button
             variant="link"
             onClick={() => signOut()}

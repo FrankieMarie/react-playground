@@ -44,7 +44,7 @@ export const Login = () => {
 
   return (
     <section className="mx-auto flex max-w-md translate-y-1/2 flex-col items-center justify-center gap-4">
-      <div className="flex w-full flex-col gap-6 rounded-lg bg-medium bg-opacity-15 p-8">
+      <div className="bg-mediumDark flex w-full flex-col gap-6 rounded-lg p-8">
         <h1 className="text-center text-2xl font-bold uppercase">Welcome</h1>
         <form className="flex flex-col gap-8">
           {/* login with credentials */}

@@ -8,7 +8,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, name, ...props }, ref) => {
     return (
-      <div className="outline-animation focus-within:border-primary border-light relative rounded-md border-2">
+      <div className="outline-animation relative rounded-md border-2 border-light focus-within:border-primary">
         <input
           type={type}
           name={name}
@@ -19,7 +19,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         <label
-          className="origin-0 bg-dark pointer-events-none absolute top-1/4 pl-2 duration-150"
+          className="bg-mediumDark pointer-events-none absolute top-1/4 origin-0 pl-2 duration-150"
           htmlFor={name}
         >
           {label}
