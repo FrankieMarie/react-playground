@@ -22,7 +22,7 @@ export const Column = ({ title, tasks, selectedSort, onChangeSort }: Props) => {
       <div className="flex items-baseline gap-6">
         <h1 className="mb-4 text-2xl font-semibold text-secondary">{title}</h1>
         <Select
-          options={['priority', 'createdAt', 'title']}
+          options={['priority', 'title']}
           selected={selectedSort}
           onChange={(value) => onChangeSort(value as TaskKeys)}
         />

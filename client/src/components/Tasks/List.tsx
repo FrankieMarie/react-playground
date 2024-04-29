@@ -13,23 +13,17 @@ export const List = ({ tasks }: Props) => {
     done: 'title'
   });
 
-  const todo = tasks
-    ?.filter((x) => x.status === 'todo')
-    .sort((a, b) =>
-      `${a[sort.todo]}`.localeCompare(`${b[sort.todo]}`)
-    ) as Tasks;
+  // @ts-expect-error
+  // sortTasks defined as Array.prototype in utils
+  const todo = tasks?.filter((x) => x.status === 'todo').sortTasks(sort.todo);
 
   const inProgress = tasks
     ?.filter((x) => x.status === 'inProgress')
-    .sort((a, b) =>
-      `${a[sort.inProgress]}`.localeCompare(`${b[sort.inProgress]}`)
-    ) as Tasks;
+    // @ts-expect-error
+    .sortTasks(sort.inProgress);
 
-  const done = tasks
-    ?.filter((x) => x.status === 'done')
-    .sort((a, b) =>
-      `${a[sort.done]}`.localeCompare(`${b[sort.done]}`)
-    ) as Tasks;
+  // @ts-expect-error
+  const done = tasks?.filter((x) => x.status === 'done').sortTasks(sort.done);
 
   return (
     <div className="my-8 grid shrink-0 grow grid-cols-3 gap-8">
