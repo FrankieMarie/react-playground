@@ -1,11 +1,11 @@
 # React Playground
 
 This is a fullstack repo where I try things for fun and experiment with tools I am interested in.
+Both front and backend utilize [TypeScript](https://www.typescriptlang.org/).
 
 ## CLIENT
 
 - [React](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [React Query](https://tanstack.com/)
 - [React Router](https://reactrouter.com/en/main)
@@ -46,7 +46,7 @@ bun run migrate
 ```
 
 ```
-bun seed
+bun run seed
 ```
 
 ```
