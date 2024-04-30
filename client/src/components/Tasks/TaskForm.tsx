@@ -6,7 +6,7 @@ import { Button } from '../Button';
 import { useUser } from '@clerk/clerk-react';
 
 interface Props {
-  task?: Task;
+  task?: Task | null;
   onSubmit: (data: Task) => void;
 }
 
@@ -21,17 +21,22 @@ export const TaskForm = ({ task, onSubmit }: Props) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (user) {
-      const newTask: Task = {
-        title,
-        description,
-        status,
-        priority,
-        userId: task?.userId || user?.id
-      };
+    let result: Task = {
+      title,
+      description,
+      status,
+      priority,
+      userId: user?.id as string
+    };
 
-      onSubmit(newTask);
+    if (task) {
+      result = {
+        ...result,
+        id: task.id
+      };
     }
+
+    onSubmit(result);
   };
 
   return (

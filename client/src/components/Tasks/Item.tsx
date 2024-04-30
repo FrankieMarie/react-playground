@@ -3,14 +3,18 @@ import { Pencil1Icon } from '@radix-ui/react-icons';
 
 interface Props {
   task: Task;
+  onEdit: (task: Task) => void;
 }
 
-export const Item = ({ task }: Props) => {
+export const Item = ({ task, onEdit }: Props) => {
   const priority = task.priority;
 
   return (
     <div className="relative rounded-md bg-medium bg-opacity-50 p-4">
-      <button className="absolute right-2 top-2 text-secondary transition-all hover:text-primary">
+      <button
+        onClick={() => onEdit(task)}
+        className="absolute right-2 top-2 text-secondary transition-all hover:text-primary"
+      >
         <Pencil1Icon />
       </button>
       <h2 className="mb-2">{task.title}</h2>

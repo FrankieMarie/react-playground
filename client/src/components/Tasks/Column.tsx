@@ -1,6 +1,12 @@
-import { TaskKeys, Tasks } from '@/api/tasks/types';
+import { Task, TaskKeys, Tasks } from '@/api/tasks/types';
 import Select from '../Select';
 import { Item } from './Item';
+import { useEffect, useState } from 'react';
+import { Modal } from '../Modal';
+import { TaskForm } from './TaskForm';
+import { useUpdateTask } from '@/api/tasks/useUpdateTask';
+import { TASKS_QUERY_KEY } from '@/api/tasks/useGetTasks';
+import { useServices } from '@/hooks/useServices';
 
 interface Props {
   title: string;
@@ -10,11 +16,36 @@ interface Props {
 }
 
 export const Column = ({ title, tasks, selectedSort, onChangeSort }: Props) => {
+  const { mutateAsync } = useUpdateTask();
+  const { queryClient } = useServices();
+  const [isEditing, setEditing] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+
+  const handleSubmit = (data: Task) => {
+    mutateAsync(data).then(() => {
+      setEditing(false);
+      queryClient.refetchQueries({ queryKey: [TASKS_QUERY_KEY] });
+    });
+  };
+
+  const handleClose = () => {
+    setEditing(false);
+    setSelectedTask(null);
+  };
+
+  useEffect(() => {
+    if (selectedTask) {
+      setEditing(true);
+    }
+  }, [selectedTask]);
+
   const renderItems = () =>
     !tasks ? (
       <p>Fetching Tasks...</p>
     ) : (
-      tasks.map((x) => <Item key={x.id} task={x} />)
+      tasks.map((x) => (
+        <Item key={x.id} task={x} onEdit={(task) => setSelectedTask(task)} />
+      ))
     );
 
   return (
@@ -28,6 +59,10 @@ export const Column = ({ title, tasks, selectedSort, onChangeSort }: Props) => {
         />
       </div>
       <div className="mt-4 flex flex-col gap-4">{renderItems()}</div>
+
+      <Modal title="Edit Task" isOpen={isEditing} setOpen={handleClose}>
+        <TaskForm task={selectedTask} onSubmit={handleSubmit} />
+      </Modal>
     </section>
   );
 };
