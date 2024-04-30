@@ -22,7 +22,7 @@ export const Home = () => {
   };
 
   return (
-    <div className="flex h-full flex-col overflow-auto">
+    <div className="flex h-full flex-col">
       <Button
         className="w-max"
         variant="outline"

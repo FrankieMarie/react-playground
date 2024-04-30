@@ -26,7 +26,7 @@ export const List = ({ tasks }: Props) => {
   const done = tasks?.filter((x) => x.status === 'done').sortTasks(sort.done);
 
   return (
-    <div className="my-8 grid shrink-0 grow grid-cols-3 gap-8">
+    <div className="my-8 flex  grow flex-col gap-8 lg:grid lg:grid-cols-3">
       <Column
         title="Backlog"
         tasks={todo}
