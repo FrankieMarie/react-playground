@@ -10,4 +10,4 @@ export const tasks = sqliteTable("tasks", {
   userId: text("user_id"),
 });
 
-export type NewTask = typeof tasks.$inferInsert;
+export type Task = typeof tasks.$inferInsert;

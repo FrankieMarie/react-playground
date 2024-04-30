@@ -9,6 +9,7 @@ export const useGetTasks = () => {
 
   // TODO: fetch tasks by userId
   const fetchTasks = () =>
+    // demo axios w/ react query
     axiosInstance.get<Tasks>('/tasks').then((res) => res.data);
 
   return useQuery<Tasks, Error>({
