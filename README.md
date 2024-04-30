@@ -26,7 +26,7 @@ To run local server:
 bun install
 ```
 
-(optional) create a seed.ts file:
+- create a seed.ts file for starting data:
 
 ```
 import { db } from "./db.js";
