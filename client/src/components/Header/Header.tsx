@@ -7,6 +7,7 @@ import { Button } from '../Button';
 import { Mobile } from './Mobile';
 import { NavItem, navItems } from './NavItem';
 import { Avatar } from '../Avatar';
+import { Popover, PopoverContent, PopoverTrigger } from '../Popover';
 
 export const Header = () => {
   const { signOut } = useAuth();
@@ -50,19 +51,41 @@ export const Header = () => {
         </ul>
 
         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-end sm:gap-4">
-          {user && <Avatar image={user.imageUrl} />}
-          <Button
-            variant="link"
-            onClick={() => signOut()}
-            className={`p-0 text-sm font-semibold leading-6 text-light hover:text-primary ${!user && 'pointer-events-none invisible'}`}
-          >
-            Logout <span aria-hidden="true">&rarr;</span>
-          </Button>
+          {user && (
+            <Popover>
+              <PopoverTrigger>
+                <Avatar image={user.imageUrl} />
+              </PopoverTrigger>
+              <PopoverContent>
+                <div className="flex flex-col items-start gap-4">
+                  <p className="flex w-full items-baseline justify-between border-b border-dotted">
+                    <label className="text-sm font-semibold">Name:</label>{' '}
+                    {user.fullName}
+                  </p>
+                  <p className="flex w-full items-baseline justify-between border-b border-dotted">
+                    <label className="text-sm font-semibold">Username:</label>{' '}
+                    {user.username}
+                  </p>
+                  <p className="flex w-full items-baseline justify-between border-b border-dotted">
+                    <label className="text-sm font-semibold">Email:</label>{' '}
+                    {user.emailAddresses[0].emailAddress}
+                  </p>
+                  <Button
+                    variant="link"
+                    onClick={() => signOut()}
+                    className={`p-0 text-sm font-semibold leading-6 text-light hover:text-primary ${!user && 'pointer-events-none invisible'}`}
+                  >
+                    Logout <span aria-hidden="true">&rarr;</span>
+                  </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
+          )}
         </div>
       </nav>
 
       {/* Mobile Nav */}
-      <ul className="flex flex-col gap-8">
+      <ul className="z-50 flex flex-col gap-8">
         <Mobile isOpen={mobileMenuOpen} setOpen={setMobileMenuOpen} />
       </ul>
     </header>

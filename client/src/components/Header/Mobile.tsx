@@ -19,8 +19,8 @@ export const Mobile = ({ isOpen, setOpen }: Props) => {
 
   return (
     <Dialog as="div" className="lg:hidden" open={isOpen} onClose={handleClose}>
-      <div className="fixed inset-0 z-10" />
-      <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-medium px-6 py-4 sm:max-w-sm sm:ring-1 sm:ring-medium/10">
+      <div className="fixed inset-0 z-50" />
+      <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-medium px-6 py-4 sm:max-w-sm sm:ring-1 sm:ring-medium/10">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="-m-1.5 p-1.5">
