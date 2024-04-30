@@ -13,7 +13,7 @@ export default function Select({ options, selected, onChange }: Props) {
     <div className="z-30 flex-grow">
       <Listbox value={selected} onChange={onChange}>
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg border border-light bg-transparent py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default rounded-lg border-2 border-light bg-transparent py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:text-sm">
             <span className="block truncate">{selected}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <CaretSortIcon
