@@ -71,10 +71,12 @@ export const TaskForm = ({ task, onSubmit }: Props) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <div className="mt-6">
+      <div className="mt-6 flex justify-between">
         <Button type="submit" variant="default" onClick={handleSubmit}>
           Submit
         </Button>
+
+        {task && <Button variant="destructive">Delete</Button>}
       </div>
     </form>
   );
