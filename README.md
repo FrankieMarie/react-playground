@@ -1,6 +1,7 @@
 # React Playground
 
 This is a fullstack repo where I try things for fun and experiment with tools I am interested in.
+I have built a basic TODO app to demonstrate CRUD actions and show design patterns in React. 
 Both front and backend utilize [TypeScript](https://www.typescriptlang.org/).
 
 ## CLIENT
