@@ -15,7 +15,6 @@ dist-ssr
 # db
 drizzle
 sqlite.db
-seed.ts
 
 # Editor directories and files
 .vscode/*

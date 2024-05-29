@@ -1,7 +1,7 @@
 # React Playground
 
 This is a fullstack repo where I try things for fun and experiment with tools I am interested in.
-I have built a basic TODO app to demonstrate CRUD actions and show design patterns in React. 
+I have built a basic TODO app to demonstrate CRUD actions and show design patterns in React.
 Both front and backend utilize [TypeScript](https://www.typescriptlang.org/).
 
 ## CLIENT
@@ -21,22 +21,13 @@ Both front and backend utilize [TypeScript](https://www.typescriptlang.org/).
 
 ---
 
-To run local server:
+Set up local server:
 
 ```
 bun install
 ```
 
-- create a seed.ts file for starting data:
-
-```
-import { db } from "./db.js";
-import * as schema from "./schema.js";
-
-const tasks = {...};
-
-await db.insert(schema.tasks).values([ ...tasks ]);
-```
+Generate local db file:
 
 ```
 bun run generate
@@ -49,6 +40,8 @@ bun run migrate
 ```
 bun run seed
 ```
+
+Start server:
 
 ```
 bun dev
